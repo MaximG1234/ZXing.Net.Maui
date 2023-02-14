@@ -5,8 +5,10 @@ using Microsoft.Maui;
 using Microsoft.Maui.Graphics;
 using Microsoft.Maui.Handlers;
 
+#nullable enable
 namespace ZXing.Net.Maui
 {
+
 	public partial class CameraBarcodeReaderViewHandler : ViewHandler<ICameraBarcodeReaderView, NativePlatformCameraPreviewView>
 	{
 		public static PropertyMapper<ICameraBarcodeReaderView, CameraBarcodeReaderViewHandler> CameraBarcodeReaderViewMapper = new()
@@ -31,18 +33,19 @@ namespace ZXing.Net.Maui
 		{
 		}
 
-		CameraManager cameraManager;
+		CameraManager? cameraManager;
 
-		Readers.IBarcodeReader barcodeReader;
+		Readers.IBarcodeReader? barcodeReader;
 
 		protected Readers.IBarcodeReader BarcodeReader
-			=> barcodeReader ??= Services.GetService<Readers.IBarcodeReader>();
+			=> barcodeReader ??= Services.GetRequiredService<Readers.IBarcodeReader>();
 
 		protected override NativePlatformCameraPreviewView CreatePlatformView()
 		{
 			if (cameraManager == null)
 				cameraManager = new(MauiContext, VirtualView?.CameraLocation ?? CameraLocation.Rear);
-			var v = cameraManager.CreateNativeView();
+            
+            var v = cameraManager.CreateNativeView();
 			return v;
 		}
 
@@ -65,11 +68,11 @@ namespace ZXing.Net.Maui
 			base.DisconnectHandler(nativeView);
 		}
 
-		private void CameraManager_FrameReady(object sender, CameraFrameBufferEventArgs e)
+		private void CameraManager_FrameReady(object? sender, CameraFrameBufferEventArgs e)
 		{
 			VirtualView?.FrameReady(e);
 
-			if (VirtualView.IsDetecting)
+            if (VirtualView != null && VirtualView.IsDetecting)
 			{
 				var barcodes = BarcodeReader.Decode(e.Data);
 
@@ -101,4 +104,6 @@ namespace ZXing.Net.Maui
 		public static void MapAutoFocus(CameraBarcodeReaderViewHandler handler, ICameraBarcodeReaderView cameraBarcodeReaderView, object? parameters)
 			=> handler.AutoFocus();
 	}
+
 }
+#nullable disable

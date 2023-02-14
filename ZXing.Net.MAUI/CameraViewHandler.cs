@@ -1,10 +1,7 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Maui;
+﻿using Microsoft.Maui;
 using Microsoft.Maui.Graphics;
 using Microsoft.Maui.Handlers;
+using System;
 
 namespace ZXing.Net.Maui
 {
@@ -40,10 +37,16 @@ namespace ZXing.Net.Maui
 			if (cameraManager == null)
 				cameraManager = new(MauiContext, VirtualView?.CameraLocation ?? CameraLocation.Rear);
 			var v = cameraManager.CreateNativeView();
-			return v;
+          
+            return v;
 		}
+        public override Size GetDesiredSize(double widthConstraint, double heightConstraint)
+        {
+            var re = base.GetDesiredSize(widthConstraint, heightConstraint);
+			return re;
+        }
 
-		protected override async void ConnectHandler(NativePlatformCameraPreviewView nativeView)
+        protected override async void ConnectHandler(NativePlatformCameraPreviewView nativeView)
 		{
 			base.ConnectHandler(nativeView);
 

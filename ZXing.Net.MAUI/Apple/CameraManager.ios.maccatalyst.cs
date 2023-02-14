@@ -41,9 +41,9 @@ namespace ZXing.Net.Maui
 			};
 
 			videoPreviewLayer = new AVCaptureVideoPreviewLayer(captureSession);
-			videoPreviewLayer.VideoGravity = AVLayerVideoGravity.ResizeAspectFill;
-
-			view = new PreviewView(videoPreviewLayer);
+			videoPreviewLayer.VideoGravity = AVLayerVideoGravity.ResizeAspect;
+            
+            view = new PreviewView(videoPreviewLayer);
 
 			return view;
 		}

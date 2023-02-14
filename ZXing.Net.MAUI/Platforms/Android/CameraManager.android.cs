@@ -19,13 +19,13 @@ using Java.Util.Concurrent;
 using Microsoft.Maui;
 using Microsoft.Maui.Handlers;
 using Microsoft.Extensions.DependencyInjection;
-using static Android.Hardware.Camera;
-using static Android.Provider.Telephony;
-using static Java.Util.Concurrent.Flow;
-using AView = Android.Views.View;
-using Android.Hardware;
-using static Android.Graphics.Paint;
-using AndroidX.Camera.Camera2.InterOp;
+//using static Android.Hardware.Camera2.CameraDevice;
+//using static Android.Provider.Telephony;
+//using static Java.Util.Concurrent.Flow;
+//using AView = Android.Views.View;
+//using Android.Hardware;
+//using static Android.Graphics.Paint;
+//using AndroidX.Camera.Camera2.InterOp;
 
 namespace ZXing.Net.Maui
 {
@@ -43,7 +43,7 @@ namespace ZXing.Net.Maui
 		{
 			previewView = new PreviewView(Context.Context);
 			cameraExecutor = Executors.NewSingleThreadExecutor();
-
+            previewView.SetScaleType(PreviewView.ScaleType.FitCenter);
 			return previewView;
 		}
 
@@ -55,13 +55,21 @@ namespace ZXing.Net.Maui
 			{
 				// Used to bind the lifecycle of cameras to the lifecycle owner
 				cameraProvider = (ProcessCameraProvider)cameraProviderFuture.Get();
+                
+                // Preview
+                cameraPreview = new AndroidX.Camera.Core.Preview.Builder()
+					//.SetMaxResolution(new Android.Util.Size(640, 480))
+					//.SetDefaultResolution(new Android.Util.Size(640, 480))
+					//.SetDefaultSessionConfig(new AndroidX.Camera.Core.Impl.SessionConfig()
+					//{
+					//	 InputConfiguration.
+					//})
+					.Build();
 
-				// Preview
-				cameraPreview = new AndroidX.Camera.Core.Preview.Builder().Build();
 				cameraPreview.SetSurfaceProvider(previewView.SurfaceProvider);
 
-				// Frame by frame analyze
-				imageAnalyzer = new ImageAnalysis.Builder()
+                // Frame by frame analyze
+                imageAnalyzer = new ImageAnalysis.Builder()
 					.SetDefaultResolution(new Android.Util.Size(640, 480))
 					.SetBackpressureStrategy(ImageAnalysis.StrategyKeepOnlyLatest)
 					.Build();

@@ -20,10 +20,35 @@
 		<PublishRepositoryUrl>true</PublishRepositoryUrl>
 		<AssemblyFileVersion>$(PackageVersion)</AssemblyFileVersion>
 		<DebugType>portable</DebugType>
-		<IsPackable>true</IsPackable>
+    <IsPackable>true</IsPackable>
+    <PublishReadyToRun>false</PublishReadyToRun>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-ios|AnyCPU'">
 	  <CreatePackage>false</CreatePackage>
+	  <NoWarn>1701;1702;8602;8632;8604;8625;CA1422;CA1416;0067</NoWarn>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-android|AnyCPU'">
+	  <Debugger>Xamarin</Debugger>
+	  <NoWarn>1701;1702;8602;8632;8604;8625;CA1422;CA1416;0067</NoWarn>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0-android|AnyCPU'">
+	  <Debugger>Xamarin</Debugger>
+	  <NoWarn>1701;1702;8602;8632;8604;8625;CA1422;CA1416;0067</NoWarn>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-maccatalyst|AnyCPU'">
+	  <NoWarn>1701;1702;8602;8632;8604;8625;CA1422;CA1416;0067</NoWarn>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0-maccatalyst|AnyCPU'">
+	  <NoWarn>1701;1702;8602;8632;8604;8625;CA1422;CA1416;0067</NoWarn>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0-ios|AnyCPU'">
+	  <NoWarn>1701;1702;8602;8632;8604;8625;CA1422;CA1416;0067</NoWarn>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-windows10.0.19041|AnyCPU'">
+	  <NoWarn>1701;1702;8602;8632;8604;8625;CA1422;CA1416;0067</NoWarn>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0-windows10.0.19041|AnyCPU'">
+	  <NoWarn>1701;1702;8602;8632;8604;8625;CA1422;CA1416;0067</NoWarn>
 	</PropertyGroup>
 	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">
 		<PackageReference Include="Xamarin.AndroidX.Camera.Camera2" Version="1.1.0" />
