@@ -40,11 +40,6 @@ namespace ZXing.Net.Maui
           
             return v;
 		}
-        public override Size GetDesiredSize(double widthConstraint, double heightConstraint)
-        {
-            var re = base.GetDesiredSize(widthConstraint, heightConstraint);
-			return re;
-        }
 
         protected override async void ConnectHandler(NativePlatformCameraPreviewView nativeView)
 		{
